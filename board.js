@@ -55,6 +55,13 @@ var renderBoard = function () {
     boardPieces.push(new BoardPiece(wall + 18 * alley, wall + 5.1 * alley, 2 * alley, 8 * alley));
     boardPieces.push(new BoardPiece(wall + 21 * alley, wall + 5.1 * alley, 4 * alley, 2 * alley));
 
+    /* the bottom of the 'T' in the 'T' right on top of the ghost cage */
+    boardPieces.push(new BoardPiece(wall + 12 * alley, wall + 5.1 * alley + 2 * alley, 2 * alley, 3 * alley));
+
+    /* the bottom of the 'T' in the sideways 'T's on the tall 8 alley bricks on the sides */
+    boardPieces.push(new BoardPiece(wall + 8 * alley, wall + 5.1 * alley + 3 * alley, 3 * alley, 2 * alley));
+    boardPieces.push(new BoardPiece(wall + 15 * alley, wall + 5.1 * alley + 3 * alley, 3 * alley, 2 * alley));
+
     /* bottom */
     boardPieces.push(new BoardPiece(0, board.height - wall, board.width, wall));
 
