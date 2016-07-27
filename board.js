@@ -17,19 +17,23 @@ var boardPieces = [];
  * @param height
  * @returns {number}
  */
-var renderBoard = function (width, height) {
+var renderBoard = function () {
+
+    var container = $("#body-wrapper");
 
     var board = $("#board").get(0);
     var boardContext = board.getContext("2d");
 
-    board.width = width;
-    board.height = height;
+    board.height = container.height();
 
     var wall = 5;
 
-    var alley = (board.width - 2 * wall) / 26;
+    var alley = (board.height - 2 * wall) / 29;
 
     var pacmanRadius = alley / 2.25;
+
+    board.width = 2 * wall + 26 * alley;
+    container.width(board.width);
 
     /* top */
     boardPieces.push(new BoardPiece(0, 0, board.width, wall));
