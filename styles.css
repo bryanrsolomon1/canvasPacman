@@ -1,0 +1,26 @@
+html, body {
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    margin: 0;
+}
+
+#body-wrapper {
+    width: 70%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#board {
+    position: absolute;
+    z-index: 0;
+}
+
+#game {
+    position: absolute;
+    z-index: 1;
+}
