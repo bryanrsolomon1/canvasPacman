@@ -1,6 +1,6 @@
 /**
  * Created by bryansolomon on 7/26/16.
- * 
+ *
  * I break the board out on its own so that I do not repaint its pieces each iteration. Saves major CPU
  */
 
@@ -35,10 +35,19 @@ var renderBoard = function () {
     board.width = 2 * wall + 26 * alley;
     container.width(board.width);
 
+    /* Board built from top down read from left to right */
+
+    var sideWall = board.height - 2 * wall; // account for top and bottom border
+
+
     /* top */
     boardPieces.push(new BoardPiece(0, 0, board.width, wall));
     /* chiclet hanging down off top in the middle */
     boardPieces.push(new BoardPiece(wall + 12 * alley, wall, 2 * alley, 4 * alley));
+
+    /* top 1/2 left and right walls */
+    boardPieces.push(new BoardPiece(0, wall, wall, 13 * alley));
+    boardPieces.push(new BoardPiece(board.width - wall, wall, wall, 13 * alley));
 
     /* first row (4 squares across the top) */
     boardPieces.push(new BoardPiece(wall + alley, wall + alley, 4 * alley, 3 * alley));
@@ -55,44 +64,24 @@ var renderBoard = function () {
     boardPieces.push(new BoardPiece(wall + 18 * alley, wall + 5.1 * alley, 2 * alley, 8 * alley));
     boardPieces.push(new BoardPiece(wall + 21 * alley, wall + 5.1 * alley, 4 * alley, 2 * alley));
 
-    /* the bottom of the 'T' in the 'T' right on top of the ghost cage */
+    /* the bottom of the 'T' in the 'T' just above the ghost cage */
     boardPieces.push(new BoardPiece(wall + 12 * alley, wall + 5.1 * alley + 2 * alley, 2 * alley, 3 * alley));
 
-    /* the bottom of the 'T' in the sideways 'T's on the tall 8 alley bricks on the sides */
-    boardPieces.push(new BoardPiece(wall + 8 * alley, wall + 5.1 * alley + 3 * alley, 3 * alley, 2 * alley));
-    boardPieces.push(new BoardPiece(wall + 15 * alley, wall + 5.1 * alley + 3 * alley, 3 * alley, 2 * alley));
+    /* the next row which includes:
+     * (1) the width-wise chunks of land that jet out from the sides
+     * (2) and the bottom of the 'T' in the sideways 'T's on the tall 8 alley bricks that stare at each other
+
+     /* (1) */
+    boardPieces.push(new BoardPiece(wall, wall + 8.1 * alley, 5 * alley, 5 * alley));
+    /* (2) */
+    boardPieces.push(new BoardPiece(wall + 8 * alley, wall + 8.1 * alley, 3 * alley, 2 * alley));
+    boardPieces.push(new BoardPiece(wall + 15 * alley, wall + 8.1 * alley, 3 * alley, 2 * alley));
+    /* (1) */
+    boardPieces.push(new BoardPiece(wall + 21 * alley, wall + 8.1 * alley, 5 * alley, 5 * alley));
 
     /* bottom */
     boardPieces.push(new BoardPiece(0, board.height - wall, board.width, wall));
-
-    /* left */
-    var sideWall = board.height - 2 * wall;
-
-    // top left
-    boardPieces.push(new BoardPiece(0, wall, wall, sideWall / 3));
-
-    //TODO: double check this middle logic is correct after changing wall logic
-    // middle left
-    // boardPieces.push(new BoardPiece(0, wall + sideWall / 3, board.width / 4, (sideWall / 3 - alley) / 2));
-    // boardPieces.push(new BoardPiece(0, wall + sideWall / 3 + (sideWall / 3 - alley) / 2 + alley, board.width / 4, (sideWall / 3 - alley) / 2));
-
-    // bottom left
-    // boardPieces.push(new BoardPiece(0, wall + 2 / 3 * sideWall, wall, sideWall / 3));
-    // boardPieces.push(new BoardPiece(wall, wall + 5 / 6 * sideWall, board.width / 10, wall));
-
-    /* right  */
-
-    // top right
-    boardPieces.push(new BoardPiece(board.width - wall, wall, wall, sideWall / 3));
-
-    // middle right
-    // boardPieces.push(new BoardPiece(board.width - board.width / 4, wall + sideWall / 3, board.width / 4, (sideWall / 3 - alley) / 2));
-    // boardPieces.push(new BoardPiece(board.width - board.width / 4, wall + sideWall / 3 + (sideWall / 3 - alley) / 2 + alley, board.width / 4, (sideWall / 3 - alley) / 2));
-
-    // bottom right
-    // boardPieces.push(new BoardPiece(board.width - wall, wall + 2 / 3 * sideWall, wall, sideWall / 3));
-    // boardPieces.push(new BoardPiece(board.width - wall - board.width / 10, wall + 5 / 6 * sideWall, board.width / 10, wall));
-
+    
     (function () {
         boardContext.strokeStyle = "Black";
 
