@@ -14,6 +14,8 @@ $(document).ready(function () {
     DIRECTIONS.UP.opposite = DIRECTIONS.DOWN.value;
     DIRECTIONS.DOWN.opposite = DIRECTIONS.UP.value;
 
+    var radius = renderBoard();
+    
     var container = $("#body-wrapper");
 
     var game = $("#game").get(0);
@@ -21,8 +23,6 @@ $(document).ready(function () {
 
     game.width = container.width();
     game.height = container.height();
-    
-    var radius = renderBoard(game.width, game.height);
 
     var pacman = new Pacman(radius, "Yellow");
     var elements = [pacman];
@@ -55,54 +55,56 @@ $(document).ready(function () {
 
         /* update pacman for next iteration */
 
-        var updated = false;
+        if (pacman.proposedDirection) {
+            var updated = false;
 
-        /* is the user trying to turn? */
-        if (pacman.proposedDirection.value !== pacman.direction.value) {
-            updateMotion(pacman.proposedDirection.value);
-            if (isCollision()) {
-                /* can't turn that way, undo the motion */
-                updateMotion(pacman.proposedDirection.opposite);
-            } else {
-                pacman.direction = pacman.proposedDirection;
-                updated = true;
-                pacman.isMoving = true;
+            /* is the user trying to turn? */
+            if (pacman.proposedDirection.value !== pacman.direction.value) {
+                updateMotion(pacman.proposedDirection.value);
+                if (isCollision()) {
+                    /* can't turn that way, undo the motion */
+                    updateMotion(pacman.proposedDirection.opposite);
+                } else {
+                    pacman.direction = pacman.proposedDirection;
+                    updated = true;
+                    pacman.isMoving = true;
+                }
             }
-        }
 
-        /* did the user turn? */
-        if (!updated) {
-            updateMotion(pacman.direction.value);
-            if (isCollision()) {
-                /* can't proceed on in current direction, undo the motion */
-                updateMotion(pacman.direction.opposite);
-                pacman.isMoving = false;
-            } else {
-                pacman.isMoving = true;
+            /* did the user turn? */
+            if (!updated) {
+                updateMotion(pacman.direction.value);
+                if (isCollision()) {
+                    /* can't proceed on in current direction, undo the motion */
+                    updateMotion(pacman.direction.opposite);
+                    pacman.isMoving = false;
+                } else {
+                    pacman.isMoving = true;
+                }
             }
-        }
 
-        /* check wrap around */
-        if (pacman.x - pacman.radius > game.width) {
-            pacman.x = pacman.radius;
-            pacman.direction = DIRECTIONS.RIGHT;
-            pacman.proposedDirection = DIRECTIONS.RIGHT;
-        } else if (pacman.x + pacman.radius < 0) {
-            pacman.x = game.width - pacman.radius;
-            pacman.direction = DIRECTIONS.LEFT;
-            pacman.proposedDirection = DIRECTIONS.LEFT;
-        }
+            /* check wrap around */
+            if (pacman.x - pacman.radius > game.width) {
+                pacman.x = pacman.radius;
+                pacman.direction = DIRECTIONS.RIGHT;
+                pacman.proposedDirection = DIRECTIONS.RIGHT;
+            } else if (pacman.x + pacman.radius < 0) {
+                pacman.x = game.width - pacman.radius;
+                pacman.direction = DIRECTIONS.LEFT;
+                pacman.proposedDirection = DIRECTIONS.LEFT;
+            }
 
-        /* update mouth */
-        if (pacman.isMoving) {
-            if (pacman.mouthClosing) {
-                pacman.startAngle -= .05;
-                pacman.stopAngle += .05;
-                pacman.mouthClosing = pacman.startAngle > 0.05;
-            } else {
-                pacman.startAngle += .05;
-                pacman.stopAngle -= .05;
-                pacman.mouthClosing = pacman.startAngle > .20;
+            /* update mouth */
+            if (pacman.isMoving) {
+                if (pacman.mouthClosing) {
+                    pacman.startAngle -= .05;
+                    pacman.stopAngle += .05;
+                    pacman.mouthClosing = pacman.startAngle > 0.05;
+                } else {
+                    pacman.startAngle += .05;
+                    pacman.stopAngle -= .05;
+                    pacman.mouthClosing = pacman.startAngle > .20;
+                }
             }
         }
 
