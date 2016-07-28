@@ -1,6 +1,12 @@
 /**
  * Created by bryansolomon on 7/26/16.
  */
+
+var COMPONENTS = {
+    WALL: "wall",
+    PILL: "pill"
+};
+
 $(document).ready(function () {
 
     var DIRECTIONS = {
@@ -9,6 +15,7 @@ $(document).ready(function () {
         DOWN: {value: 1.5},
         UP: {value: .5}
     };
+    
     DIRECTIONS.LEFT.opposite = DIRECTIONS.RIGHT.value;
     DIRECTIONS.RIGHT.opposite = DIRECTIONS.LEFT.value;
     DIRECTIONS.UP.opposite = DIRECTIONS.DOWN.value;
@@ -84,12 +91,12 @@ $(document).ready(function () {
             }
 
             /* check wrap around */
-            if (pacman.x - pacman.radius > game.width) {
+            if (pacman.x - pacman.radius > game.width) { // did the user go off the screen left?
                 pacman.x = pacman.radius;
                 pacman.direction = DIRECTIONS.RIGHT;
                 pacman.proposedDirection = DIRECTIONS.RIGHT;
-            } else if (pacman.x + pacman.radius < 0) {
-                pacman.x = game.width - pacman.radius;
+            } else if (pacman.x + pacman.radius < 0) { // did the user go off the screen right?
+                pacman.x = game.width - 0;
                 pacman.direction = DIRECTIONS.LEFT;
                 pacman.proposedDirection = DIRECTIONS.LEFT;
             }
@@ -114,16 +121,16 @@ $(document).ready(function () {
     function updateMotion(direction) {
         switch (direction) {
             case DIRECTIONS.RIGHT.value:
-                pacman.x += 5;
+                pacman.x += 3;
                 break;
             case DIRECTIONS.LEFT.value:
-                pacman.x -= 5;
+                pacman.x -= 3;
                 break;
             case DIRECTIONS.DOWN.value:
-                pacman.y += 5;
+                pacman.y += 3;
                 break;
             case DIRECTIONS.UP.value:
-                pacman.y -= 5;
+                pacman.y -= 3;
                 break;
         }
     }
@@ -132,15 +139,15 @@ $(document).ready(function () {
     function isCollision() {
         /* using a try-catch because there is no break statement in a JS for-each :( */
         try {
-            boardPieces.forEach(function (piece) {
-                if (!(pacman.x + pacman.radius < piece.x) && // pacman too far right?
-                    !(piece.x + piece.width < pacman.x - pacman.radius) && // pacman too far left?
-                    !(pacman.y + pacman.radius < piece.y) && // pacman too low?
-                    !(piece.y + piece.height < pacman.y - pacman.radius)) { // pacman too high?
-                    console.log("Collision!");
-                    throw new Error(); // collision
-                }
-            });
+            // boardPieces.forEach(function (piece) {
+            //     if (!(pacman.x + pacman.radius < piece.x) && // pacman too far right?
+            //         !(piece.x + piece.width < pacman.x - pacman.radius) && // pacman too far left?
+            //         !(pacman.y + pacman.radius < piece.y) && // pacman too low?
+            //         !(piece.y + piece.height < pacman.y - pacman.radius)) { // pacman too high?
+            //         console.log("Collision!");
+            //         throw new Error(); // collision
+            //     }
+            // });
             return false;
         } catch (e) {
             return true;
