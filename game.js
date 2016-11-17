@@ -2,11 +2,6 @@
  * Created by bryansolomon on 7/26/16.
  */
 
-var COMPONENTS = {
-    WALL: "wall",
-    PILL: "pill"
-};
-
 $(document).ready(function () {
 
     var DIRECTIONS = {
@@ -15,27 +10,24 @@ $(document).ready(function () {
         DOWN: {value: 1.5},
         UP: {value: .5}
     };
-    
+
     DIRECTIONS.LEFT.opposite = DIRECTIONS.RIGHT.value;
     DIRECTIONS.RIGHT.opposite = DIRECTIONS.LEFT.value;
     DIRECTIONS.UP.opposite = DIRECTIONS.DOWN.value;
     DIRECTIONS.DOWN.opposite = DIRECTIONS.UP.value;
 
-    var radius = renderBoard();
+    renderBoard();
     
-    var container = $("#body-wrapper");
-
     var game = $("#game").get(0);
+    console.log("Game width and height:", game.width, game.height);
+    
     var gameContext = game.getContext("2d");
 
-    game.width = container.width();
-    game.height = container.height();
-
-    var pacman = new Pacman(radius, "Yellow");
+    var pacman = new Pacman(15, "Yellow");
+    
     var elements = [pacman];
 
     function renderContent() {
-        /* TODO: add the ghosts to Elements array */
         elements.forEach(function (element) {
             gameContext.beginPath();
 
@@ -139,15 +131,15 @@ $(document).ready(function () {
     function isCollision() {
         /* using a try-catch because there is no break statement in a JS for-each :( */
         try {
-            // boardPieces.forEach(function (piece) {
-            //     if (!(pacman.x + pacman.radius < piece.x) && // pacman too far right?
-            //         !(piece.x + piece.width < pacman.x - pacman.radius) && // pacman too far left?
-            //         !(pacman.y + pacman.radius < piece.y) && // pacman too low?
-            //         !(piece.y + piece.height < pacman.y - pacman.radius)) { // pacman too high?
-            //         console.log("Collision!");
-            //         throw new Error(); // collision
-            //     }
-            // });
+            wallPieces.forEach(function (piece) {
+                if (!(pacman.x + pacman.radius < piece.x) && // pacman too far right?
+                    !(piece.x + piece.width < pacman.x - pacman.radius) && // pacman too far left?
+                    !(pacman.y + pacman.radius < piece.y) && // pacman too low?
+                    !(piece.y + piece.height < pacman.y - pacman.radius)) { // pacman too high?
+                    console.log("Collision!");
+                    throw new Error(); // collision
+                }
+            });
             return false;
         } catch (e) {
             return true;
@@ -192,8 +184,8 @@ $(document).ready(function () {
         this.startAngle = .25;
         this.stopAngle = 1.75;
         this.mouthClosing = true;
-        this.x = 6 + radius;
-        this.y = 6 + radius;
+        this.x = 20 + radius;
+        this.y = 20 + radius;
         this.radius = radius;
         this.direction = DIRECTIONS.RIGHT;
         this.proposedDirection = null;
