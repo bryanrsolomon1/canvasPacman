@@ -24,13 +24,10 @@ var renderBoard = function () {
 
     /* top */
     wallPieces.push(new BoardPiece(0, 0, board.width, wall));
-    /* chiclet hanging down off top in the middle */
-    // boardPieces.push(new BoardPiece(12, wall, 2, 4));
-    //
     // /* top 1/2 left and right walls */
-    // wallPieces.push(new BoardPiece(0, wall, wall, 13));
-    // wallPieces.push(new BoardPiece(board.width - wall, wall, wall, 13 * gridLength));
-    //
+    wallPieces.push(new BoardPiece(0, wall, wall, 13));
+    wallPieces.push(new BoardPiece(board.width - wall, wall, wall, 13 * gridLength));
+    
     // /* first row (4 squares across the top) */
     // boardPieces.push(new BoardPiece(1, 1, 4, 3));
     // boardPieces.push(new BoardPiece(6, 1, 5, 3));
