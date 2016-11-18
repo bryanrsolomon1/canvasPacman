@@ -16,14 +16,13 @@ $(document).ready(function () {
     DIRECTIONS.UP.opposite = DIRECTIONS.DOWN.value;
     DIRECTIONS.DOWN.opposite = DIRECTIONS.UP.value;
 
-    renderBoard();
+    board.init();
     
     var game = $("#game").get(0);
-    console.log("Game width and height:", game.width, game.height);
     
     var gameContext = game.getContext("2d");
 
-    var pacman = new Pacman(15, "Yellow");
+    var pacman = new Pacman(14, "Yellow");
     
     var elements = [pacman];
 
@@ -129,20 +128,30 @@ $(document).ready(function () {
 
     /* check collisions */
     function isCollision() {
+        var collider;
         /* using a try-catch because there is no break statement in a JS for-each :( */
         try {
-            wallPieces.forEach(function (piece) {
+            board.boardPieces.forEach(function (piece) {
                 if (!(pacman.x + pacman.radius < piece.x) && // pacman too far right?
                     !(piece.x + piece.width < pacman.x - pacman.radius) && // pacman too far left?
                     !(pacman.y + pacman.radius < piece.y) && // pacman too low?
                     !(piece.y + piece.height < pacman.y - pacman.radius)) { // pacman too high?
-                    console.log("Collision!");
+                    collider = piece;
                     throw new Error(); // collision
                 }
             });
             return false;
         } catch (e) {
-            return true;
+            switch(collider.type) {
+                case "Wall":
+                    return true;
+                case "Pill":
+                    console.log("Waka");
+                    board.remove(collider);
+                    return false;
+                default:
+                    return true;
+            }
         }
     }
 
@@ -184,8 +193,8 @@ $(document).ready(function () {
         this.startAngle = .25;
         this.stopAngle = 1.75;
         this.mouthClosing = true;
-        this.x = 20 + radius;
-        this.y = 20 + radius;
+        this.x = 35 + radius;
+        this.y = 35 + radius;
         this.radius = radius;
         this.direction = DIRECTIONS.RIGHT;
         this.proposedDirection = null;

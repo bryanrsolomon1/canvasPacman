@@ -5,142 +5,194 @@
  */
 
 /* global on the whole window because game.js needs access to this */
-var wallPieces = [];
-
-/**
- * Having a lot of trouble with drawing the board to be dynamic based on the user's window. Floating point is making alley
- * ways non-accessible and strange behavior results.
- *
- * Might need to hardcode everything in a little 500 x 500 the way the demo does
- */
-var renderBoard = function () {
-
-    var board = $("#board").get(0);
-    var boardContext = board.getContext("2d");
-
-    var wall = 15;
-
-    /* Board built from top down read from left to right */
-
-    /* top */
-    wallPieces.push(new BoardPiece(0, 0, board.width, wall));
-    // /* top 1/2 left and right walls */
-    wallPieces.push(new BoardPiece(0, wall, wall, 13));
-    wallPieces.push(new BoardPiece(board.width - wall, wall, wall, 13 * gridLength));
-    
-    // /* first row (4 squares across the top) */
-    // boardPieces.push(new BoardPiece(1, 1, 4, 3));
-    // boardPieces.push(new BoardPiece(6, 1, 5, 3));
-    // boardPieces.push(new BoardPiece(15, 1, 5, 3));
-    // boardPieces.push(new BoardPiece(21, 1, 4, 3));
-    //
-    // /* next set of shapes starting at (5 * alley) from the top */
-    // /* had to do 5.1 because somewhere I'm missing something and pacman won't fit if just plain 5 */
-    // /* possibly just floating point crap? */
-    // boardPieces.push(new BoardPiece(1, 5, 4, 2));
-    // boardPieces.push(new BoardPiece(6, 5, 2, 8));
-    // boardPieces.push(new BoardPiece(9, 5, 8, 2));
-    // boardPieces.push(new BoardPiece(18, 5, 2, 8));
-    // boardPieces.push(new BoardPiece(21, 5, 4, 2));
-    //
-    // /* the bottom of the 'T' in the 'T' just above the ghost cage */
-    // boardPieces.push(new BoardPiece(12, 7, 2, 3));
-    //
-    // /* the next row includes:
-    //  * (1) the top width-wise chunks of land that jet out from the sides
-    //  * (2) and the bottom of the 'T' in the sideways 'T's on the tall 8 alley bricks that stare at each other
-    //  *
-    //  * (1) */
-    // boardPieces.push(new BoardPiece(wall, 8, 5, 5));
-    // /* (2) */
-    // boardPieces.push(new BoardPiece(8, 8, 3, 2));
-    // boardPieces.push(new BoardPiece(15, 8, 3, 2));
-    // /* (1) */
-    // boardPieces.push(new BoardPiece(21, 8, 5, 5));
-    //
-    // /* ghost box */
-    // boardPieces.push(new BoardPiece(9, 11, 8, 5));
-    //
-    // /* bottom 1/2 left and right walls */
-    // wallPieces.push(new BoardPiece(0, 14, wall, 15));
-    // wallPieces.push(new BoardPiece(board.width - wall, 14 * gridLength, wall, 15 * gridLength));
-    //
-    // /* the next row includes:
-    //  * (1) the bottom width-wise chunks of land that jet out from the sides
-    //  * (2) and the matching floating tall bricks between them
-    //  *
-    //  * (1) */
-    // boardPieces.push(new BoardPiece(wall, 14, 5, 5));
-    // /* (2) */
-    // boardPieces.push(new BoardPiece(6, 14, 2, 5));
-    // boardPieces.push(new BoardPiece(18, 14, 2, 5));
-    // /* (1) */
-    // boardPieces.push(new BoardPiece(21, 14, 5, 5));
-    //
-    // /* the top of the 'T' underneath the ghost box */
-    // boardPieces.push(new BoardPiece(9, 17, 8, 2));
-    //
-    // /* the bottom of the 'T' in the 'T' underneath the ghost cage */
-    // boardPieces.push(new BoardPiece(12, 19, 2, 3));
-    //
-    // /* row full of straight flat lines that either float alone or are apart of the upside-down 'L's */
-    // boardPieces.push(new BoardPiece(1, 20, 4, 2));
-    // boardPieces.push(new BoardPiece(6, 20, 5, 2));
-    // boardPieces.push(new BoardPiece(15, 20, 5, 2));
-    // boardPieces.push(new BoardPiece(21, 20, 4, 2));
-    //
-    // /* the row that houses the dangling segments in the two upside-down 'L's */
-    // boardPieces.push(new BoardPiece(3, 22, 2, 3));
-    // boardPieces.push(new BoardPiece(21, 22, 2, 3));
-    //
-    // /* (1) chiclets sprouting from the side of the walls
-    //  * (2) the bottoms of the upside-down mushrooms (shape equal to --> ____|_ & _|_____
-    //  * (3) top of the right side up 'T'
-    //  *
-    //  * (1) */
-    // boardPieces.push(new BoardPiece(wall, 23, 2, 2));
-    // /* (2) */
-    // boardPieces.push(new BoardPiece(6, 23, 2, 3));
-    // /* (3) */
-    // boardPieces.push(new BoardPiece(9, 23, 8, 2));
-    // /* (2) */
-    // boardPieces.push(new BoardPiece(18, 23, 2, 3));
-    // /* (1) */
-    // boardPieces.push(new BoardPiece(board.width - wall - 2, 23, 2, 2));
-    //
-    // /* bottom of the 'T' */
-    // boardPieces.push(new BoardPiece(12, 25, 2, 3));
-    //
-    // /* the bottom of the upside-down mushrooms (shape equal to --> ____|_ & _|_____    */
-    //  boardPieces.push(new BoardPiece(1, 26, 10, 2));
-    //  boardPieces.push(new BoardPiece(15, 26, 10, 2));
-    //
-     /* bottom */
-    wallPieces.push(new BoardPiece(0, board.height - wall, board.width, wall));
-
-    (function () {
-        boardContext.strokeStyle = "Black";
-
-        boardContext.fillRect(0, 0, board.width, board.height);
-
-        boardContext.save();
-
-        boardContext.fillStyle = "Blue";
-        // boardContext.lineWidth = 5;
-
-        wallPieces.forEach(function (piece) {
-            /* paint the wall */
-            boardContext.fillRect(piece.x, piece.y, piece.width, piece.height);
-        });
-
-        boardContext.restore();
-
-    })();
-
-    function BoardPiece(x, y, width, height) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-    }
+var board = {
+    boardPieces: [],
+    init: init,
+    remove: remove
 };
+
+function init() {
+
+    var grid = {width: 33, height: 33};
+
+    var wallPieces = initWalls();
+
+    var pills = initPills();
+
+    wallPieces.forEach(function (piece) {
+        piece.x = piece.x * grid.width;
+        piece.y = piece.y * grid.height;
+        piece.width = piece.width * grid.width;
+        piece.height = piece.height * grid.height;
+        board.boardPieces.push(piece);
+    });
+
+    pills.forEach(function (pill) {
+        pill.x = pill.x * grid.width + grid.width / 2;
+        pill.y = pill.y * grid.height + grid.height / 2;
+        board.boardPieces.push(pill);
+    });
+
+    paint();
+}
+
+function initWalls() {
+    /* Board built from top down read from left to right */
+    var wallPieces = [];
+    wallPieces.push(new Wall(0, 0, 21, 1));
+
+    wallPieces.push(new Wall(0, 1, 1, 7));
+    wallPieces.push(new Wall(20, 1, 1, 7));
+
+    wallPieces.push(new Wall(2, 2, 2, 1));
+    wallPieces.push(new Wall(5, 2, 2, 1));
+    wallPieces.push(new Wall(8, 2, 5, 1));
+    wallPieces.push(new Wall(14, 2, 2, 1));
+    wallPieces.push(new Wall(17, 2, 2, 1));
+
+    wallPieces.push(new Wall(2, 3, 1, 1));
+    wallPieces.push(new Wall(6, 3, 1, 1));
+    wallPieces.push(new Wall(8, 3, 1, 3));
+    wallPieces.push(new Wall(12, 3, 1, 3));
+    wallPieces.push(new Wall(14, 3, 1, 1));
+    wallPieces.push(new Wall(18, 3, 1, 1));
+
+    wallPieces.push(new Wall(4, 4, 1, 3));
+    wallPieces.push(new Wall(10, 4, 1, 2));
+    wallPieces.push(new Wall(16, 4, 1, 3));
+
+    wallPieces.push(new Wall(2, 5, 4, 1));
+    wallPieces.push(new Wall(7, 5, 1, 1));
+    wallPieces.push(new Wall(13, 5, 1, 1));
+    wallPieces.push(new Wall(15, 5, 4, 1));
+
+    wallPieces.push(new Wall(2, 7, 1, 1));
+    wallPieces.push(new Wall(6, 7, 3, 1));
+    wallPieces.push(new Wall(12, 7, 3, 1));
+    wallPieces.push(new Wall(18, 7, 1, 1));
+
+    wallPieces.push(new Wall(4, 8, 1, 3));
+    wallPieces.push(new Wall(6, 8, 1, 3));
+    wallPieces.push(new Wall(14, 8, 1, 3));
+    wallPieces.push(new Wall(16, 8, 1, 3));
+
+    wallPieces.push(new Wall(0, 9, 4, 1));
+    wallPieces.push(new Wall(17, 9, 4, 1));
+
+    wallPieces.push(new Wall(7, 10, 7, 1));
+
+    wallPieces.push(new Wall(0, 11, 1, 7));
+    wallPieces.push(new Wall(20, 11, 1, 7));
+    wallPieces.push(new Wall(2, 11, 1, 2));
+    wallPieces.push(new Wall(18, 11, 1, 2));
+
+    wallPieces.push(new Wall(2, 12, 3, 1));
+    wallPieces.push(new Wall(6, 12, 1, 5));
+    wallPieces.push(new Wall(9, 12, 1, 1));
+    wallPieces.push(new Wall(12, 12, 2, 1));
+    wallPieces.push(new Wall(16, 12, 3, 1));
+
+    wallPieces.push(new Wall(8, 13, 1, 1));
+    wallPieces.push(new Wall(11, 13, 1, 3));
+
+    wallPieces.push(new Wall(2, 14, 1, 1));
+    wallPieces.push(new Wall(4, 14, 1, 1));
+    wallPieces.push(new Wall(7, 14, 1, 1));
+    wallPieces.push(new Wall(13, 14, 2, 1));
+    wallPieces.push(new Wall(16, 14, 1, 1));
+    wallPieces.push(new Wall(18, 14, 1, 1));
+
+    wallPieces.push(new Wall(8, 15, 1, 1));
+    wallPieces.push(new Wall(14, 15, 1, 1));
+
+    wallPieces.push(new Wall(2, 16, 1, 1));
+    wallPieces.push(new Wall(4, 16, 1, 1));
+    wallPieces.push(new Wall(9, 16, 1, 1));
+    wallPieces.push(new Wall(12, 16, 2, 1));
+    wallPieces.push(new Wall(16, 16, 1, 1));
+    wallPieces.push(new Wall(18, 16, 1, 1));
+
+    wallPieces.push(new Wall(0, 18, 21, 1));
+    return wallPieces;
+}
+
+function initPills() {
+    var pillGrid = {
+        1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+        2: [1, 4, 7, 13, 16, 19],
+        3: [1, 3, 4, 5, 7, 9, 10, 11, 13, 15, 16, 17, 19],
+        4: [1, 2, 3, 5, 6, 7, 9, 11, 13, 14, 15, 17, 18, 19],
+        5: [1, 6, 9, 11, 14, 19],
+        6: [1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19],
+        7: [1, 3, 4, 5, 15, 16, 17, 19],
+        8: [1, 2, 3, 5, 15, 17, 18, 19],
+        9: [5, 15],
+        10: [1, 2, 3, 5, 15, 17, 18, 19],
+        11: [1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19],
+        12: [1, 5, 7, 8, 10, 11, 14, 15, 19],
+        13: [1, 2, 3, 4, 5, 7, 9, 10, 12, 13, 14, 15, 16, 17, 18, 19],
+        14: [1, 3, 5, 8, 9, 10, 12, 15, 17, 19],
+        15: [1, 2, 3, 4, 5, 7, 9, 10, 12, 13, 15, 16, 17, 18, 19],
+        16: [1, 3, 5, 7, 8, 10, 11, 14, 15, 17, 19],
+        17: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+    };
+    var pills = [];
+    for (var i = 1; i < 18; i++) {
+        for (var j = 0; j < pillGrid[i].length; j++) {
+            pills.push(new Pill(pillGrid[i][j], i));
+        }
+    }
+    return pills;
+}
+
+function Wall(x, y, width, height) {
+    var self = this;
+    self.x = x;
+    self.y = y;
+    self.width = width;
+    self.height = height;
+    self.type = "Wall";
+    self.paint = function (context) {
+        context.fillStyle = "Blue";
+        context.fillRect(self.x, self.y, self.width, self.height);
+    }
+}
+
+function Pill(x, y) {
+    var self = this;
+    self.x = x;
+    self.y = y;
+    self.radius = 3;
+    self.height = self.radius;
+    self.width = self.radius;
+    self.startAngle = 0;
+    self.stopAngle = 2;
+    self.type = "Pill";
+    self.paint = function (context) {
+        context.fillStyle = "White";
+        context.beginPath();
+        context.arc(self.x, self.y, self.radius, self.startAngle * Math.PI, self.stopAngle * Math.PI);
+        context.fill();
+        context.closePath();
+    }
+}
+
+function paint() {
+    var board$ = $("#board").get(0);
+    var boardContext = board$.getContext("2d");
+
+    board$.width = board$.width;
+
+    boardContext.strokeStyle = "Black";
+
+    boardContext.fillRect(0, 0, board$.width, board$.height);
+
+    board.boardPieces.forEach(function (piece) {
+        piece.paint(boardContext);
+    });
+}
+
+function remove(collider) {
+    board.boardPieces.splice(board.boardPieces.indexOf(collider), 1);
+    paint();
+}
