@@ -13,6 +13,8 @@ function showModal(modalType) {
         case "Contact":
             showContact();
             break;
+        case "Welcome":
+            showWelcome();
     }
 }
 
@@ -26,4 +28,8 @@ function showAbout() {
 
 function showContact() {
     $('#contact-modal').modal();
+}
+
+function showWelcome() {
+    $('#welcome-modal').modal();
 }

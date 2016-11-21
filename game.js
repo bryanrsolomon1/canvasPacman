@@ -39,6 +39,8 @@ function Game() {
 
     renderContent(); // paint the characters once in the beginning manually
 
+    showModal("Welcome");
+
     function renderContent() {
         characters.forEach(function (element) {
             gameContext.save();
