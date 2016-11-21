@@ -67,7 +67,7 @@ function Text(x, y, font, words) {
     self.words = words;
     var measurement = $("#edibles").get(0).getContext("2d").measureText(words);
     self.width = measurement.width;
-    self.height = 20;
+    self.height = 15;
     self.type = "Edible.Text";
     self.paint = function(context) {
         context.font = self.font;
@@ -136,7 +136,7 @@ function removeEdible(collider) {
  */
 var prettyBoardMatrix = [
     [88, 88, 88, 88, 88, 88, 88, 88, 88, 88, 88, 88, 88, 88, 88, 88, 88, 88, 88, 88, 88],
-    [88, 22, 22, '', '', '', '', '', '', '', 88, '', '', '', '', '', '', '', 22, 22, 88],
+    [88, '', '', '', '', '', '', '', '', '', 88, '', '', '', '', '', '', '', 22, 22, 88],
     [88, '', 88, 88, '', 88, 88, 88, 88, '', 88, '', 88, 88, 88, 88, '', 88, 88, '', 88],
     [88, '', 88, 88, '', '', '', '', '', '', '', '', '', '', '', '', '', 88, 88, '', 88],
     [88, '', '', '', '', 88, '', 88, 88, 88, 88, 88, 88, 88, '', 88, '', '', '', '', 88],

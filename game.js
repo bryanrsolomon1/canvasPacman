@@ -12,12 +12,9 @@ function Game() {
 
     var self = this;
 
-    this.Sound = {
-        play: function (sound) {
-            var audio = document.getElementById(sound);
-            (audio !== null) ? audio.play() : console.error(sound + " not found");
-        }
-    };
+    this.Sound = new Sound();
+
+    this.Score = new Score();
 
     board.init();
 
@@ -29,7 +26,7 @@ function Game() {
 
     this.width = $game.width;
 
-    this.togglePause = function() {
+    this.togglePause = function () {
         self.paused = !self.paused;
         if (self.paused) {
             self.showMessage("Paused", "Press Space bar to resume");
@@ -115,4 +112,22 @@ function Game() {
         $('#canvas-overlay-container').fadeOut(200);
         // $('.controls').slideToggle(200);
     };
+
+    function Sound() {
+        this.play = function(sound) {
+            var audio = document.getElementById(sound);
+            (audio !== null) ? audio.play() : console.error(sound, "not found");
+        }
+    }
+
+    function Score() {
+        this.score = 0;
+        this.set = function (i) {
+            this.score = i;
+            $("#score").text(this.score);
+        };
+        this.add = function (i) {
+            this.set(this.score + i);
+        };
+    }
 }

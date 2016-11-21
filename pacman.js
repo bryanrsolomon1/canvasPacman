@@ -11,8 +11,8 @@ function Pacman() {
     this.angle2 = this.startAngle2;
     this.mouthClosing = true;
     this.radius = 15;
-    this.startX = 35 + this.radius;
-    this.startY = 35 + this.radius;
+    this.startX = 10 * board.grid.length + this.radius + 2;
+    this.startY = 11 * board.grid.length + this.radius + 2;
     this.x = this.startX;
     this.y = this.startY;
     this.startDirection = DIRECTIONS.RIGHT;
@@ -52,6 +52,7 @@ function Pacman() {
                         break;
                     case "Edible.Pill":
                         // game.Sound.play("waka");
+                        game.Score.add(10);
                         board.removeEdible(collider);
                         break;
                     case "Edible.PowerPill":

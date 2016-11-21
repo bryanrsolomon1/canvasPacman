@@ -8,6 +8,8 @@
 
     <link type="text/css" rel="stylesheet" href="styles.css">
 
+    <link rel="shortcut icon" href="assets/img/Icon-130x130.png"/>
+
 </head>
 <body>
 
@@ -18,37 +20,42 @@
 
 <div id="body-wrapper">
 
-    <div id="info-bar">
+    <div id="center-content">
 
-        <span id="score">Score:</span>
-        <!--<span id="level">Lvl:</span>-->
-        <span id="lives">Lives:</span>
+        <div id="info-bar">
 
-        <div id="control-sound">
-            <img src="assets/img/audio-icon-mute.png" id="mute">
+            <span>Score:</span>
+            <span id="score"></span>
+            <span>Lives:</span>
+            <span id="lives"></span>
+
+            <!--<div id="control-sound">-->
+                <!--<img src="assets/img/audio-icon-mute.png" id="mute" height="25" width="25">-->
+            <!--</div>-->
+
         </div>
 
-    </div>
+        <div id="game-wrapper">
 
-    <div id="game-wrapper">
+            <canvas id="board" height="627" width="693">
+                <p> Canvas element is not supported on your browser</p>
+            </canvas>
 
-        <canvas id="board" height="627" width="693">
-            <p> Canvas element is not supported on your browser</p>
-        </canvas>
+            <canvas id="edibles" height="627" width="693">
+                <p> Canvas element is not supported on your browser</p>
+            </canvas>
 
-        <canvas id="edibles" height="627" width="693">
-            <p> Canvas element is not supported on your browser</p>
-        </canvas>
+            <canvas id="game" height="627" width="693">
+                <p> Canvas element is not supported on your browser</p>
+            </canvas>
 
-        <canvas id="game" height="627" width="693">
-            <p> Canvas element is not supported on your browser</p>
-        </canvas>
-
-        <div id="canvas-overlay-container">
-            <div id="canvas-overlay-content">
-                <div id="title">Pacman</div>
-                <div><p id="text">Press the space bar to Play</p></div>
+            <div id="canvas-overlay-container">
+                <div id="canvas-overlay-content">
+                    <div id="title">Pacman</div>
+                    <div><p id="text">Press the space bar to Play</p></div>
+                </div>
             </div>
+
         </div>
 
     </div>
@@ -97,13 +104,13 @@
                     -New York Times
                 </p>
                 <p>"Outstanding woman."<br>
-                -Washington Post
+                    -Washington Post
                 </p>
                 <p>"I wish I could be more like her."<br>
                     -The Most Interesting Man in the World
                 </p>
                 <p>"She's my phone background."<br>
-                -Bryan Solomon
+                    -Bryan Solomon
                 </p>
             </div>
 
