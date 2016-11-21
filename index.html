@@ -4,27 +4,168 @@
     <meta charset="UTF-8">
     <title>Kristina</title>
 
+    <link type="text/css" rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.css">
+
     <link type="text/css" rel="stylesheet" href="styles.css">
 
 </head>
 <body>
 
+<img id="blinky" src="assets/img/blinky.svg" style="display:none;">
+<img id="inky" src="assets/img/inky.svg" style="display:none;">
+<img id="clyde" src="assets/img/clyde.svg" style="display:none;">
+<img id="pinky" src="assets/img/pinky.svg" style="display:none;">
+
 <div id="body-wrapper">
 
-    <canvas id="board" height="627" width="693">
-        <p> Canvas element is not supported on your browser</p>
-    </canvas>
+    <div id="info-bar">
 
-    <canvas id="game" height="627" width="693">
-        <p> Canvas element is not supported on your browser</p>
-    </canvas>
+        <span id="score">Score:</span>
+        <!--<span id="level">Lvl:</span>-->
+        <span id="lives">Lives:</span>
+
+        <div id="control-sound">
+            <img src="assets/img/audio-icon-mute.png" id="mute">
+        </div>
+
+    </div>
+
+    <div id="game-wrapper">
+
+        <canvas id="board" height="627" width="693">
+            <p> Canvas element is not supported on your browser</p>
+        </canvas>
+
+        <canvas id="edibles" height="627" width="693">
+            <p> Canvas element is not supported on your browser</p>
+        </canvas>
+
+        <canvas id="game" height="627" width="693">
+            <p> Canvas element is not supported on your browser</p>
+        </canvas>
+
+        <!--<div id="canvas-overlay-container">-->
+        <!--<div id="canvas-overlay-content">-->
+        <!--<div id="title">Pacman Canvas</div>-->
+        <!--<div><p id="text">Click to Play</p></div>-->
+        <!--</div>-->
+        <!--</div>-->
+
+    </div>
 
 </div>
 
-<script src="jquery-1.10.2.min.js"></script>
+<!-- The Modal -->
+<div id="resume-modal" class="modal fade" role="dialog">
 
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content pacman-modal">
+
+            <div class="modal-header">
+                <h4 class="modal-title">Résumé</h4>
+            </div>
+
+            <div class="modal-body">
+                <p>I turn traumas into nirvanas the end.</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div id="about-modal" class="modal fade" role="dialog">
+
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content pacman-modal">
+
+            <div class="modal-header">
+                <h4 class="modal-title">About Kristina</h4>
+            </div>
+
+            <div class="modal-body">
+                <p>"One hell of a gal"
+                    -New York Times
+                </p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div id="contact-modal" class="modal fade" role="dialog">
+
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content pacman-modal">
+
+            <div class="modal-header">
+                <h4 class="modal-title">Contact Me</h4>
+            </div>
+
+            <div class="modal-body">
+                <p>I was bluffing. Please don't contact me.</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<span id="audio">
+	<audio id="theme" preload="auto">
+		<source src="assets/wav/theme.wav" type="audio/wav">
+		<source src="assets/mp3/theme.mp3" type="audio/mpeg">
+	</audio>
+	<audio id="waka" preload="auto">
+		<source src="assets/wav/waka.wav" type="audio/wav">
+		<source src="assets/mp3/waka.mp3" type="audio/mpeg">
+	</audio>
+	<audio id="die" preload="auto">
+		<source src="assets/wav/die.wav" type="audio/wav">
+		<source src="assets/mp3/die.mp3" type="audio/mpeg">
+	</audio>
+	<audio id="powerpill" preload="auto">
+		<source src="assets/wav/powerpill.wav" type="audio/wav">
+		<source src="assets/mp3/powerpill.mp3" type="audio/mpeg">
+	</audio>
+</span>
+
+<script src="jquery-1.10.2.min.js"></script>
+<script src="pathfinding-browser.js"></script>
+<script src="bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+
+<script src="app.js"></script>
 <script src="game.js"></script>
 <script src="board.js"></script>
+<script src="motion.js"></script>
+<script src="pacman.js"></script>
+<script src="ghost.js"></script>
+<script src="inky.js"></script>
+<script src="blinky.js"></script>
+<script src="pinky.js"></script>
+<script src="clyde.js"></script>
 
 </body>
 </html>

@@ -2,156 +2,57 @@
  * Created by bryansolomon on 7/26/16.
  */
 
-$(document).ready(function () {
+var game;
 
-    var DIRECTIONS = {
-        LEFT: {value: 1},
-        RIGHT: {value: 0},
-        DOWN: {value: 1.5},
-        UP: {value: .5}
+$(document).ready(function () {
+    game = new Game();
+});
+
+function Game() {
+
+    var self = this;
+
+    this.Sound = {
+        play: function (sound) {
+            var audio = document.getElementById(sound);
+            (audio !== null) ? audio.play() : console.error(sound + " not found");
+        }
     };
 
-    DIRECTIONS.LEFT.opposite = DIRECTIONS.RIGHT.value;
-    DIRECTIONS.RIGHT.opposite = DIRECTIONS.LEFT.value;
-    DIRECTIONS.UP.opposite = DIRECTIONS.DOWN.value;
-    DIRECTIONS.DOWN.opposite = DIRECTIONS.UP.value;
-
     board.init();
-    
-    var game = $("#game").get(0);
-    
-    var gameContext = game.getContext("2d");
 
-    var pacman = new Pacman(14, "Yellow");
-    
-    var elements = [pacman];
+    var $game = $("#game").get(0);
+
+    var gameContext = $game.getContext("2d");
+
+    this.paused = false;
+
+    this.width = $game.width;
+
+    this.togglePause = function() {
+        self.paused = !self.paused;
+    };
+
+    var characters = [pacman, blinky, inky, clyde, pinky];
 
     function renderContent() {
-        elements.forEach(function (element) {
-            gameContext.beginPath();
-
-            gameContext.fillStyle = element.fillStyle;
-
-            gameContext.translate(element.x, element.y);
-            gameContext.rotate(-element.direction.value * Math.PI);
-            gameContext.translate(-element.x, -element.y);
-
-            gameContext.arc(element.x, element.y, element.radius, element.startAngle * Math.PI, element.stopAngle * Math.PI, false);
-            gameContext.lineTo(element.x, element.y);
-
-            gameContext.fill();
-
-            gameContext.closePath();
+        characters.forEach(function (element) {
+            gameContext.save();
+            element.paint(gameContext);
+            gameContext.restore();
         })
     }
 
     function animationLoop() {
-        /* reset the canvas */
-        game.width = game.width;
-        /* paint the canvas */
-        renderContent();
+        if (!self.paused) {
+            /* reset the canvas */
+            $game.width = $game.width;
+            /* paint the canvas */
+            renderContent();
 
-        /* update pacman for next iteration */
-
-        if (pacman.proposedDirection) {
-            var updated = false;
-
-            /* is the user trying to turn? */
-            if (pacman.proposedDirection.value !== pacman.direction.value) {
-                updateMotion(pacman.proposedDirection.value);
-                if (isCollision()) {
-                    /* can't turn that way, undo the motion */
-                    updateMotion(pacman.proposedDirection.opposite);
-                } else {
-                    pacman.direction = pacman.proposedDirection;
-                    updated = true;
-                    pacman.isMoving = true;
-                }
-            }
-
-            /* did the user turn? */
-            if (!updated) {
-                updateMotion(pacman.direction.value);
-                if (isCollision()) {
-                    /* can't proceed on in current direction, undo the motion */
-                    updateMotion(pacman.direction.opposite);
-                    pacman.isMoving = false;
-                } else {
-                    pacman.isMoving = true;
-                }
-            }
-
-            /* check wrap around */
-            if (pacman.x - pacman.radius > game.width) { // did the user go off the screen left?
-                pacman.x = pacman.radius;
-                pacman.direction = DIRECTIONS.RIGHT;
-                pacman.proposedDirection = DIRECTIONS.RIGHT;
-            } else if (pacman.x + pacman.radius < 0) { // did the user go off the screen right?
-                pacman.x = game.width - 0;
-                pacman.direction = DIRECTIONS.LEFT;
-                pacman.proposedDirection = DIRECTIONS.LEFT;
-            }
-
-            /* update mouth */
-            if (pacman.isMoving) {
-                if (pacman.mouthClosing) {
-                    pacman.startAngle -= .05;
-                    pacman.stopAngle += .05;
-                    pacman.mouthClosing = pacman.startAngle > 0.05;
-                } else {
-                    pacman.startAngle += .05;
-                    pacman.stopAngle -= .05;
-                    pacman.mouthClosing = pacman.startAngle > .20;
-                }
-            }
-        }
-
-        /* end update pacman */
-    }
-
-    function updateMotion(direction) {
-        switch (direction) {
-            case DIRECTIONS.RIGHT.value:
-                pacman.x += 3;
-                break;
-            case DIRECTIONS.LEFT.value:
-                pacman.x -= 3;
-                break;
-            case DIRECTIONS.DOWN.value:
-                pacman.y += 3;
-                break;
-            case DIRECTIONS.UP.value:
-                pacman.y -= 3;
-                break;
-        }
-    }
-
-    /* check collisions */
-    function isCollision() {
-        var collider;
-        /* using a try-catch because there is no break statement in a JS for-each :( */
-        try {
-            board.boardPieces.forEach(function (piece) {
-                if (!(pacman.x + pacman.radius < piece.x) && // pacman too far right?
-                    !(piece.x + piece.width < pacman.x - pacman.radius) && // pacman too far left?
-                    !(pacman.y + pacman.radius < piece.y) && // pacman too low?
-                    !(piece.y + piece.height < pacman.y - pacman.radius)) { // pacman too high?
-                    collider = piece;
-                    throw new Error(); // collision
-                }
+            characters.forEach(function (character) {
+                character.move();
             });
-            return false;
-        } catch (e) {
-            switch(collider.type) {
-                case "Wall":
-                    return true;
-                case "Pill":
-                    console.log("Waka");
-                    board.remove(collider);
-                    return false;
-                default:
-                    return true;
-            }
         }
     }
 
@@ -182,24 +83,32 @@ $(document).ready(function () {
                 break;
             case 32:	// SPACE pressed -> pause
                 evt.preventDefault();
-                // TODO: pause the game
+                self.togglePause();
                 break;
         }
     }
 
     setInterval(animationLoop, 30);
+    // self.showMessage("Testing", "Seriously just testing");
 
-    function Pacman(radius, fillStyle) {
-        this.startAngle = .25;
-        this.stopAngle = 1.75;
-        this.mouthClosing = true;
-        this.x = 35 + radius;
-        this.y = 35 + radius;
-        this.radius = radius;
-        this.direction = DIRECTIONS.RIGHT;
-        this.proposedDirection = null;
-        this.isMoving = false;
-        this.fillStyle = fillStyle;
-    }
+    this.reset = function () {
+        characters.forEach(function (character) {
+            character.reset();
+        });
+        board.init();
+    };
 
-});
+    this.showMessage = function (title, text) {
+        // this.timer.stop();
+        self.paused = true;
+        $('#canvas-overlay-container').fadeIn(200);
+        // if ($('.controls').css('display') != "none") $('.controls').slideToggle(200);
+        $('#canvas-overlay-content #title').text(title);
+        $('#canvas-overlay-content #text').html(text);
+    };
+
+    this.closeMessage = function () {
+        $('#canvas-overlay-container').fadeOut(200);
+        // $('.controls').slideToggle(200);
+    };
+}

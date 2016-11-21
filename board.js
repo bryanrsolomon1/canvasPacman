@@ -6,169 +6,86 @@
 
 /* global on the whole window because game.js needs access to this */
 var board = {
-    boardPieces: [],
     init: init,
-    remove: remove
+    removeEdible: removeEdible,
+    grid : {length: 33}
 };
 
 function init() {
 
-    var grid = {width: 33, height: 33};
+    board.boardPieces = [];
+
+    board.boardPieces.push(blinky, inky, clyde, pinky);
 
     var wallPieces = initWalls();
 
     var pills = initPills();
 
     wallPieces.forEach(function (piece) {
-        piece.x = piece.x * grid.width;
-        piece.y = piece.y * grid.height;
-        piece.width = piece.width * grid.width;
-        piece.height = piece.height * grid.height;
         board.boardPieces.push(piece);
     });
 
     pills.forEach(function (pill) {
-        pill.x = pill.x * grid.width + grid.width / 2;
-        pill.y = pill.y * grid.height + grid.height / 2;
         board.boardPieces.push(pill);
     });
 
-    paint();
+    board.boardPieces.push(new Text(18, 18, "10px 'Press Start 2P'", "Résumé"));
+    board.boardPieces.push(new Text(18, 2, "9px 'Press Start 2P'", "Contact"));
+    board.boardPieces.push(new Text(1, 18, "10px 'Press Start 2P'", " About"));
+
+    paintBoard();
+    paintEdibles();
 }
 
 function initWalls() {
     /* Board built from top down read from left to right */
-    var wallPieces = [];
-    wallPieces.push(new Wall(0, 0, 21, 1));
-
-    wallPieces.push(new Wall(0, 1, 1, 7));
-    wallPieces.push(new Wall(20, 1, 1, 7));
-
-    wallPieces.push(new Wall(2, 2, 2, 1));
-    wallPieces.push(new Wall(5, 2, 2, 1));
-    wallPieces.push(new Wall(8, 2, 5, 1));
-    wallPieces.push(new Wall(14, 2, 2, 1));
-    wallPieces.push(new Wall(17, 2, 2, 1));
-
-    wallPieces.push(new Wall(2, 3, 1, 1));
-    wallPieces.push(new Wall(6, 3, 1, 1));
-    wallPieces.push(new Wall(8, 3, 1, 3));
-    wallPieces.push(new Wall(12, 3, 1, 3));
-    wallPieces.push(new Wall(14, 3, 1, 1));
-    wallPieces.push(new Wall(18, 3, 1, 1));
-
-    wallPieces.push(new Wall(4, 4, 1, 3));
-    wallPieces.push(new Wall(10, 4, 1, 2));
-    wallPieces.push(new Wall(16, 4, 1, 3));
-
-    wallPieces.push(new Wall(2, 5, 4, 1));
-    wallPieces.push(new Wall(7, 5, 1, 1));
-    wallPieces.push(new Wall(13, 5, 1, 1));
-    wallPieces.push(new Wall(15, 5, 4, 1));
-
-    wallPieces.push(new Wall(2, 7, 1, 1));
-    wallPieces.push(new Wall(6, 7, 3, 1));
-    wallPieces.push(new Wall(12, 7, 3, 1));
-    wallPieces.push(new Wall(18, 7, 1, 1));
-
-    wallPieces.push(new Wall(4, 8, 1, 3));
-    wallPieces.push(new Wall(6, 8, 1, 3));
-    wallPieces.push(new Wall(14, 8, 1, 3));
-    wallPieces.push(new Wall(16, 8, 1, 3));
-
-    wallPieces.push(new Wall(0, 9, 4, 1));
-    wallPieces.push(new Wall(17, 9, 4, 1));
-
-    wallPieces.push(new Wall(7, 10, 7, 1));
-
-    wallPieces.push(new Wall(0, 11, 1, 7));
-    wallPieces.push(new Wall(20, 11, 1, 7));
-    wallPieces.push(new Wall(2, 11, 1, 2));
-    wallPieces.push(new Wall(18, 11, 1, 2));
-
-    wallPieces.push(new Wall(2, 12, 3, 1));
-    wallPieces.push(new Wall(6, 12, 1, 5));
-    wallPieces.push(new Wall(9, 12, 1, 1));
-    wallPieces.push(new Wall(12, 12, 2, 1));
-    wallPieces.push(new Wall(16, 12, 3, 1));
-
-    wallPieces.push(new Wall(8, 13, 1, 1));
-    wallPieces.push(new Wall(11, 13, 1, 3));
-
-    wallPieces.push(new Wall(2, 14, 1, 1));
-    wallPieces.push(new Wall(4, 14, 1, 1));
-    wallPieces.push(new Wall(7, 14, 1, 1));
-    wallPieces.push(new Wall(13, 14, 2, 1));
-    wallPieces.push(new Wall(16, 14, 1, 1));
-    wallPieces.push(new Wall(18, 14, 1, 1));
-
-    wallPieces.push(new Wall(8, 15, 1, 1));
-    wallPieces.push(new Wall(14, 15, 1, 1));
-
-    wallPieces.push(new Wall(2, 16, 1, 1));
-    wallPieces.push(new Wall(4, 16, 1, 1));
-    wallPieces.push(new Wall(9, 16, 1, 1));
-    wallPieces.push(new Wall(12, 16, 2, 1));
-    wallPieces.push(new Wall(16, 16, 1, 1));
-    wallPieces.push(new Wall(18, 16, 1, 1));
-
-    wallPieces.push(new Wall(0, 18, 21, 1));
-    return wallPieces;
+    return convertPrettyMatrixToWalls(prettyBoardMatrix);
 }
 
 function initPills() {
-    var pillGrid = {
-        1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
-        2: [1, 4, 7, 13, 16, 19],
-        3: [1, 3, 4, 5, 7, 9, 10, 11, 13, 15, 16, 17, 19],
-        4: [1, 2, 3, 5, 6, 7, 9, 11, 13, 14, 15, 17, 18, 19],
-        5: [1, 6, 9, 11, 14, 19],
-        6: [1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19],
-        7: [1, 3, 4, 5, 15, 16, 17, 19],
-        8: [1, 2, 3, 5, 15, 17, 18, 19],
-        9: [5, 15],
-        10: [1, 2, 3, 5, 15, 17, 18, 19],
-        11: [1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19],
-        12: [1, 5, 7, 8, 10, 11, 14, 15, 19],
-        13: [1, 2, 3, 4, 5, 7, 9, 10, 12, 13, 14, 15, 16, 17, 18, 19],
-        14: [1, 3, 5, 8, 9, 10, 12, 15, 17, 19],
-        15: [1, 2, 3, 4, 5, 7, 9, 10, 12, 13, 15, 16, 17, 18, 19],
-        16: [1, 3, 5, 7, 8, 10, 11, 14, 15, 17, 19],
-        17: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
-    };
-    var pills = [];
-    for (var i = 1; i < 18; i++) {
-        for (var j = 0; j < pillGrid[i].length; j++) {
-            pills.push(new Pill(pillGrid[i][j], i));
-        }
-    }
-    return pills;
+    return convertPrettyMatrixToPills(prettyBoardMatrix);
 }
 
 function Wall(x, y, width, height) {
     var self = this;
-    self.x = x;
-    self.y = y;
-    self.width = width;
-    self.height = height;
-    self.type = "Wall";
-    self.paint = function (context) {
+    this.x = x * board.grid.length;
+    this.y = y * board.grid.length;
+    this.width = width * board.grid.length;
+    this.height = height * board.grid.length;
+    this.type = "Wall";
+    this.paint = function (context) {
         context.fillStyle = "Blue";
         context.fillRect(self.x, self.y, self.width, self.height);
     }
 }
 
+function Text(x, y, font, words) {
+    var self = this;
+    self.x = x * board.grid.length;
+    self.y = y * board.grid.length - board.grid.length / 3;
+    self.font = font;
+    self.words = words;
+    var measurement = $("#edibles").get(0).getContext("2d").measureText(words);
+    self.width = measurement.width;
+    self.height = 20;
+    self.type = "Edible.Text";
+    self.paint = function(context) {
+        context.font = self.font;
+        context.fillText(self.words, self.x, self.y);
+    }
+}
+
 function Pill(x, y) {
     var self = this;
-    self.x = x;
-    self.y = y;
-    self.radius = 3;
-    self.height = self.radius;
-    self.width = self.radius;
-    self.startAngle = 0;
-    self.stopAngle = 2;
-    self.type = "Pill";
-    self.paint = function (context) {
+    this.x = x * board.grid.length + board.grid.length / 2;
+    this.y = y * board.grid.length + board.grid.length / 2;
+    this.radius = 3;
+    this.height = this.radius;
+    this.width = this.radius;
+    this.startAngle = 0;
+    this.stopAngle = 2;
+    this.type = "Edible.Pill";
+    this.paint = function (context) {
         context.fillStyle = "White";
         context.beginPath();
         context.arc(self.x, self.y, self.radius, self.startAngle * Math.PI, self.stopAngle * Math.PI);
@@ -177,7 +94,7 @@ function Pill(x, y) {
     }
 }
 
-function paint() {
+function paintBoard() {
     var board$ = $("#board").get(0);
     var boardContext = board$.getContext("2d");
 
@@ -188,11 +105,104 @@ function paint() {
     boardContext.fillRect(0, 0, board$.width, board$.height);
 
     board.boardPieces.forEach(function (piece) {
-        piece.paint(boardContext);
+        if (piece.type === "Wall") {
+            piece.paint(boardContext);
+        }
     });
 }
 
-function remove(collider) {
+function paintEdibles() {
+    var edibles = $("#edibles").get(0);
+    var ediblesContext = edibles.getContext("2d");
+
+    edibles.width = edibles.width;
+
+    board.boardPieces.forEach(function (piece) {
+        if (piece.type.indexOf("Edible") !== -1) {
+            piece.paint(ediblesContext);
+        }
+    });
+}
+
+function removeEdible(collider) {
     board.boardPieces.splice(board.boardPieces.indexOf(collider), 1);
-    paint();
+    paintEdibles();
+}
+
+/*
+ 22 = empty
+ 88 = wall
+ empty string = pill
+ */
+var prettyBoardMatrix = [
+    [88, 88, 88, 88, 88, 88, 88, 88, 88, 88, 88, 88, 88, 88, 88, 88, 88, 88, 88, 88, 88],
+    [88, 22, 22, '', '', '', '', '', '', '', 88, '', '', '', '', '', '', '', 22, 22, 88],
+    [88, '', 88, 88, '', 88, 88, 88, 88, '', 88, '', 88, 88, 88, 88, '', 88, 88, '', 88],
+    [88, '', 88, 88, '', '', '', '', '', '', '', '', '', '', '', '', '', 88, 88, '', 88],
+    [88, '', '', '', '', 88, '', 88, 88, 88, 88, 88, 88, 88, '', 88, '', '', '', '', 88],
+    [88, '', 88, 88, '', 88, '', '', '', '', 88, '', '', '', '', 88, '', 88, 88, '', 88],
+    [88, '', '', '', '', 88, 88, 88, '', 88, 88, 88, '', 88, 88, 88, '', '', '', '', 88],
+    [88, 88, 88, '', 88, 88, '', '', '', '', '', '', '', '', '', 88, 88, '', 88, 88, 88],
+    [88, 88, 88, '', 88, 88, '', 88, 88, 22, 22, 22, 88, 88, '', 88, 88, '', 88, 88, 88],
+    [22, 22, 22, '', '', '', '', 88, 22, 22, 22, 22, 22, 88, '', '', '', '', 22, 22, 22],
+    [88, 88, 88, '', 88, 88, '', 88, 88, 88, 88, 88, 88, 88, '', 88, 88, '', 88, 88, 88],
+    [88, 88, 88, '', 88, '', '', '', '', '', '', '', '', '', '', 88, 88, '', 88, 88, 88],
+    [88, '', '', '', '', '', 88, '', '', 88, '', '', 88, 88, '', 88, '', '', '', '', 88],
+    [88, '', 88, 88, 88, '', 88, '', 88, '', '', 88, '', '', '', '', '', 88, 88, '', 88],
+    [88, '', '', '', 88, '', 88, 88, '', '', '', 88, '', 88, 88, '', 88, '', '', '', 88],
+    [88, '', 88, '', '', '', 88, '', 88, '', '', 88, '', '', 88, '', '', '', 88, '', 88],
+    [88, '', 88, '', 88, '', 88, '', '', 88, '', '', 88, 88, '', '', 88, '', 88, '', 88],
+    [88, 22, 22, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 22, 22, 88],
+    [88, 88, 88, 88, 88, 88, 88, 88, 88, 88, 88, 88, 88, 88, 88, 88, 88, 88, 88, 88, 88]
+];
+
+var boardMatrix = convertPrettyMatrixToPathFindingMatrix(prettyBoardMatrix);
+
+function convertPrettyMatrixToWalls(prettyMatrix) {
+    var walls = [];
+    for (var i = 0; i < prettyMatrix.length; i++) {
+        var runningLengthOfCurrentWall = 0;
+        var startOfWall = 0;
+        for (var j = 0; j < prettyMatrix[i].length; j++) {
+            if (prettyMatrix[i][j] === 88) {
+                if (runningLengthOfCurrentWall === 0) {
+                    startOfWall = j;
+                }
+                runningLengthOfCurrentWall++;
+                if (!prettyMatrix[i][j+1] || prettyMatrix[i][j+1] !== 88) {
+                    walls.push(new Wall(startOfWall, i, runningLengthOfCurrentWall, 1));
+                    runningLengthOfCurrentWall = 0;
+                    startOfWall = 0;
+                }
+            }
+        }
+    }
+    return walls;
+}
+
+function convertPrettyMatrixToPills(prettyMatrix) {
+    var pills = [];
+    for (var i = 0; i < prettyMatrix.length; i++) {
+        for (var j = 0; j < prettyMatrix[i].length; j++) {
+            if (prettyMatrix[i][j] === '') {
+                    pills.push(new Pill(j, i));
+            }
+        }
+    }
+    return pills;
+}
+
+function convertPrettyMatrixToPathFindingMatrix(prettyMatrix) {
+    var result = [];
+    for (var i = 0; i < prettyMatrix.length; i++) {
+        result[i] = [];
+        for (var j = 0; j < prettyMatrix[i].length; j++) {
+            if (prettyMatrix[i][j] === 88) {
+                result[i][j] = 1;
+            } else {
+                result[i][j] = 0;
+            }
+        }
+    }
+    return result;
 }

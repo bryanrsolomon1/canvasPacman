@@ -1,7 +1,19 @@
+@font-face {
+    font-family: 'Press Start 2P';
+    font-style: normal;
+    font-weight: 400;
+    src: url('assets/fonts/PressStart2Play.eot');
+    src: url('assets/fonts/PressStart2Play.eot?iefix') format('eot'),
+    url('assets/fonts/PressStart2Play.woff') format('woff'),
+    url('assets/fonts/PressStart2Play.ttf') format('truetype');
+}
+
 html, body {
     padding: 0;
     height: 100%;
     width: 100%;
+    font-family: 'Press Start 2P', cursive;
+    text-transform: uppercase;
 }
 
 body {
@@ -9,20 +21,65 @@ body {
 }
 
 #body-wrapper {
+    margin: 0 auto;
     width: 70%;
     height: 100%;
-    margin-left: auto;
-    margin-right: auto;
+    position: relative;
+}
+
+#center-content {
+    position: relative;
+}
+
+#game-wrapper {
+    margin: 0 auto;
+    position: relative;
+    height: 100%;
+}
+
+#game-wrapper canvas {
+    margin: 0 auto;
+    left: 0; right: 0;
+    position: absolute;
 }
 
 #board {
-    position: absolute;
-    left: 350px;
-    z-index: 0;
+}
+
+#edibles {
+    z-index: 1;
 }
 
 #game {
+    z-index: 2;
+}
+
+#canvas-overlay-container {
+    position: relative;
+    background: rgba(0,0,0,0.7);
+    height: 627px;
+    width: 693px;
+}
+
+#canvas-overlay-content {
     position: absolute;
-    left: 350px;
-    z-index: 1;
+    top: 33%;
+    left: 0;
+    margin-top: 0;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    z-index: 1000;
+    color: white;
+}
+
+#canvas-overlay-content #title {
+    text-transform: uppercase;
+    font-size: 150%;
+}
+
+.pacman-modal {
+    border: solid 20px blue;
+    color: white;
+    background-color: black;
 }
