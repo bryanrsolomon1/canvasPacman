@@ -29,6 +29,8 @@ function init() {
         board.boardPieces.push(pill);
     });
 
+    board.boardPieces.push(new GhostHouseWall(9, 8, 3, 1));
+
     board.boardPieces.push(new Text(18, 18, "10px 'Press Start 2P'", "Résumé"));
     board.boardPieces.push(new Text(18, 2, "9px 'Press Start 2P'", "Contact"));
     board.boardPieces.push(new Text(1, 18, "10px 'Press Start 2P'", " About"));
@@ -56,6 +58,23 @@ function Wall(x, y, width, height) {
     this.paint = function (context) {
         context.fillStyle = "Blue";
         context.fillRect(self.x, self.y, self.width, self.height);
+    }
+}
+
+function GhostHouseWall(x, y, width, height) {
+    var self = this;
+    this.x = x * board.grid.length;
+    this.y = y * board.grid.length;
+    this.paintX = x * board.grid.length;
+    this.paintY = y * board.grid.length + board.grid.length / 3;
+    this.width = width * board.grid.length;
+    this.height = height * board.grid.length;
+    this.paintWidth = width * board.grid.length;
+    this.paintHeight = 8;
+    this.type = "Wall";
+    this.paint = function (context) {
+        context.fillStyle = "White";
+        context.fillRect(self.paintX, self.paintY, self.paintWidth, self.paintHeight);
     }
 }
 

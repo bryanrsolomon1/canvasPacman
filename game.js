@@ -22,7 +22,7 @@ function Game() {
 
     var gameContext = $game.getContext("2d");
 
-    this.paused = true;
+    this.paused = true; // start the game paused
 
     this.width = $game.width;
 
@@ -36,6 +36,8 @@ function Game() {
     };
 
     var characters = [pacman, blinky, inky, clyde, pinky];
+
+    renderContent(); // paint the characters once in the beginning manually
 
     function renderContent() {
         characters.forEach(function (element) {
@@ -57,6 +59,8 @@ function Game() {
             });
         }
     }
+
+    setInterval(animationLoop, 30);
 
     window.addEventListener('keydown', doKeyDown, true);
 
@@ -89,8 +93,6 @@ function Game() {
                 break;
         }
     }
-
-    setInterval(animationLoop, 30);
 
     this.reset = function () {
         characters.forEach(function (character) {
