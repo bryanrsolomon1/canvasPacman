@@ -56,6 +56,9 @@ body {
 
 #canvas-overlay-container {
     position: relative;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
     background: rgba(0,0,0,0.7);
     height: 627px;
     width: 693px;

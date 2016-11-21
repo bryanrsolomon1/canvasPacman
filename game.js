@@ -25,12 +25,17 @@ function Game() {
 
     var gameContext = $game.getContext("2d");
 
-    this.paused = false;
+    this.paused = true;
 
     this.width = $game.width;
 
     this.togglePause = function() {
         self.paused = !self.paused;
+        if (self.paused) {
+            self.showMessage("Paused", "Press Space bar to resume");
+        } else {
+            self.closeMessage();
+        }
     };
 
     var characters = [pacman, blinky, inky, clyde, pinky];
@@ -89,7 +94,6 @@ function Game() {
     }
 
     setInterval(animationLoop, 30);
-    // self.showMessage("Testing", "Seriously just testing");
 
     this.reset = function () {
         characters.forEach(function (character) {
