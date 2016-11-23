@@ -15,6 +15,10 @@ function Game() {
     this.Sound = new Sound();
 
     this.Score = new Score();
+    this.Score.set(0); // init
+
+    this.Lives = new Lives();
+    this.Lives.set(3); // init
 
     board.init();
 
@@ -39,7 +43,7 @@ function Game() {
 
     renderContent(); // paint the characters once in the beginning manually
 
-    showModal("Welcome");
+    // showModal("Welcome");
 
     function renderContent() {
         characters.forEach(function (element) {
@@ -118,10 +122,25 @@ function Game() {
     };
 
     function Sound() {
-        this.play = function(sound) {
-            var audio = document.getElementById(sound);
-            (audio !== null) ? audio.play() : console.error(sound, "not found");
-        }
+        var self = this;
+        this.muted = false;
+        this.play = function (sound) {
+            if (!self.muted) {
+                var audio = document.getElementById(sound);
+                (audio !== null) ? audio.play() : console.error(sound, "not found");
+            }
+        };
+        $("#mute-button").on('click', function () {
+            if (self.muted) {
+                self.muted = false;
+                $(this).removeClass("fa-volume-off");
+                $(this).addClass("fa-volume-up");
+            } else {
+                self.muted = true;
+                $(this).removeClass("fa-volume-up");
+                $(this).addClass("fa-volume-off");
+            }
+        });
     }
 
     function Score() {
@@ -132,6 +151,21 @@ function Game() {
         };
         this.add = function (i) {
             this.set(this.score + i);
+        };
+    }
+
+    function Lives() {
+        this.lives = 0;
+        this.set = function (i) {
+            this.lives = i;
+            var html = "";
+            for (var j = 0; j < i; j++) {
+                html += "<i class='fa fa-heart fa-2x'></i>";
+            }
+            $("#lives").html(html);
+        };
+        this.add = function (i) {
+            this.set(this.lives + i);
         };
     }
 }

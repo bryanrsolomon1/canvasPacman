@@ -17,11 +17,6 @@ html, body {
     background: url('assets/img/bg-pattern-black.png') repeat;
 }
 
-body {
-    margin: 0;
-    padding: 10px;
-}
-
 #body-wrapper {
     margin: 0 auto;
     width: 70%;
@@ -46,13 +41,22 @@ body {
 #info-bar {
     margin: 0 auto;
     position: relative;
-    height: 30px;
+    min-height: 50px;
     color: white;
-    padding: 10px;
 }
 
-#control-sound {
-    display: inline-block;
+#info-bar-contents {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+#lives {
+    color: red;
+}
+
+#lives i {
+    padding-right: 4px;
 }
 
 #game-wrapper canvas {
@@ -61,8 +65,6 @@ body {
     position: absolute;
 }
 
-#board {
-}
 
 #edibles {
     z-index: 1;
@@ -84,7 +86,7 @@ body {
 
 #canvas-overlay-content {
     position: absolute;
-    top: 42%;
+    top: 40%;
     left: 0;
     margin-top: 0;
     text-align: center;

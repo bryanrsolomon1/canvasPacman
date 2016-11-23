@@ -51,7 +51,7 @@ function Pacman() {
                     case "Wall":
                         break;
                     case "Edible.Pill":
-                        // game.Sound.play("waka");
+                        game.Sound.play("waka");
                         game.Score.add(10);
                         board.removeEdible(collider);
                         break;
@@ -64,7 +64,6 @@ function Pacman() {
                         showModal(collider.words);
                         break;
                     case "Ghost":
-                        // game.Sound.play("die");
                         self.die();
                         break;
                 }
@@ -105,7 +104,8 @@ function Pacman() {
     this.die = function () {
         self.dead = true;
         self.isMoving = false;
-        // game.Sound.play("die");
+        game.Sound.play("die");
+        game.Lives.add(-1);
     };
 
     this.dieAnimation = function () {
