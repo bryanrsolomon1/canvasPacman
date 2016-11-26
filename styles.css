@@ -82,6 +82,7 @@ html, body {
     background: rgba(0,0,0,0.7);
     height: 627px;
     width: 693px;
+    /*opacity: 0; !* to start *!*/
 }
 
 #canvas-overlay-content {
@@ -100,8 +101,21 @@ html, body {
     font-size: 150%;
 }
 
+/*#bottom-bar {*/
+    /*min-height: 50px;*/
+    /*width: 100%;*/
+/*}*/
+
 .pacman-modal {
     border: solid 20px blue;
     color: white;
     background-color: black;
+}
+
+#resume-body {
+    font-size: 10px;
+}
+
+.topic-title {
+    color: yellow;
 }

@@ -15,10 +15,11 @@ function Game() {
     this.Sound = new Sound();
 
     this.Score = new Score();
-    this.Score.set(0); // init
 
     this.Lives = new Lives();
-    this.Lives.set(3); // init
+
+    this.newGame = newGame;
+    this.gameOver = gameOver;
 
     board.init();
 
@@ -26,24 +27,19 @@ function Game() {
 
     var gameContext = $game.getContext("2d");
 
-    this.paused = true; // start the game paused
+    this.paused = true;
 
     this.width = $game.width;
 
-    this.togglePause = function () {
-        self.paused = !self.paused;
-        if (self.paused) {
-            self.showMessage("Paused", "Press Space bar to resume");
-        } else {
-            self.closeMessage();
-        }
-    };
+    this.togglePause = togglePause;
 
     var characters = [pacman, blinky, inky, clyde, pinky];
 
     renderContent(); // paint the characters once in the beginning manually
 
-    // showModal("Welcome");
+    showModal("Welcome", function () {
+        self.newGame();
+    });
 
     function renderContent() {
         characters.forEach(function (element) {
@@ -54,19 +50,17 @@ function Game() {
     }
 
     function animationLoop() {
-        if (!self.paused) {
-            /* reset the canvas */
-            $game.width = $game.width;
-            /* paint the canvas */
-            renderContent();
+        /* reset the canvas */
+        $game.width = $game.width;
+        /* paint the canvas */
+        renderContent();
 
-            characters.forEach(function (character) {
-                character.move();
-            });
-        }
+        characters.forEach(function (character) {
+            character.move();
+        });
     }
 
-    setInterval(animationLoop, 30);
+    var run;
 
     window.addEventListener('keydown', doKeyDown, true);
 
@@ -104,22 +98,52 @@ function Game() {
         characters.forEach(function (character) {
             character.reset();
         });
-        board.init();
     };
 
     this.showMessage = function (title, text) {
-        // this.timer.stop();
-        self.paused = true;
         $('#canvas-overlay-container').fadeIn(200);
-        // if ($('.controls').css('display') != "none") $('.controls').slideToggle(200);
         $('#canvas-overlay-content #title').text(title);
         $('#canvas-overlay-content #text').html(text);
     };
 
     this.closeMessage = function () {
         $('#canvas-overlay-container').fadeOut(200);
-        // $('.controls').slideToggle(200);
     };
+
+    this.closeMessage(); // start the game with message hidden
+
+    function newGame() {
+        self.Score.set(0); // init
+        self.Lives.set(3); // init
+        self.Sound.play("theme");
+        self.themeSong = true;
+        setTimeout(function () {
+            self.themeSong = false;
+            self.togglePause();
+        }, 4000);
+    }
+
+    function gameOver() {
+        self.togglePause("Game over", "Final score: " + self.Score.score +
+            "<br><br>Press Space Bar to Play Again");
+        self.Score.set(0);
+        self.Lives.set(3);
+        self.reset();
+        board.init();
+    }
+
+    function togglePause(title, text) {
+        if (!modalShowing && !self.themeSong) {
+            self.paused = !self.paused;
+            if (self.paused) {
+                clearInterval(run);
+                self.showMessage(title ? title : "Paused", text ? text :"Press Space bar to resume");
+            } else {
+                run = setInterval(animationLoop, 30);
+                self.closeMessage();
+            }
+        }
+    }
 
     function Sound() {
         var self = this;
@@ -163,6 +187,9 @@ function Game() {
                 html += "<i class='fa fa-heart fa-2x'></i>";
             }
             $("#lives").html(html);
+            if (i === 0) {
+                self.gameOver();
+            }
         };
         this.add = function (i) {
             this.set(this.lives + i);

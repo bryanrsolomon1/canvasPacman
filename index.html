@@ -14,11 +14,6 @@
 </head>
 <body>
 
-<img id="blinky" src="assets/img/blinky.svg" style="display:none;">
-<img id="inky" src="assets/img/inky.svg" style="display:none;">
-<img id="clyde" src="assets/img/clyde.svg" style="display:none;">
-<img id="pinky" src="assets/img/pinky.svg" style="display:none;">
-
 <div id="body-wrapper">
 
     <div id="center-content">
@@ -61,6 +56,9 @@
 
         </div>
 
+        <!--<div id="bottom-bar">-->
+        <!--</div>-->
+
     </div>
 
 </div>
@@ -77,8 +75,43 @@
                 <h4 class="modal-title">Résumé</h4>
             </div>
 
-            <div class="modal-body">
-                <p>When people ask me, what do you do? I tell them, whatever it takes.</p>
+            <div id="resume-body" class="modal-body">
+                <p>
+                    I proclaim myself only to be a problem-solver. Currently the majority of problems I solve are in the
+                    field of computer science. I solve them from my humble role as engineer.
+                </p>
+                <p class="topic-title">
+                    Current Role
+                </p>
+                <p>
+                    Software Engineer II, Full Stack Connectivity Team<br>
+                    NantHealth LLC. Panama City, Florida
+                </p>
+
+                <canvas id="resume-animation-canvas" height="50" width="600">
+                    <p> Canvas element is not supported on your browser</p>
+                </canvas>
+
+                <p class="topic-title">
+                    Technical Proficiencies
+                </p>
+                <p>
+                    Languages: Java, JavaScript, C++<br>
+                    Frameworks: Spring MVC, Angular, Backbone, OSGi (Karaf, Virgo), Apache Camel<br>
+                    Testing Frameworks: Mockito, JUnit, Pax Exam<br>
+                    Persistence Technologies: Elasticsearch, Hibernate, SQL Server, MySQL
+                </p>
+                <p class="topic-title">
+                    Education
+                </p>
+                <p>
+                    Master of Science – Computer Science with a specialization in Software Engineering<br>
+                    University of West Florida, Pensacola, FL
+                </p>
+                <p>
+                    Bachelor of Science – Computer Science<br>
+                    Florida State University, Panama City, FL
+                </p>
             </div>
 
             <div class="modal-footer">
@@ -203,7 +236,18 @@
 	</audio>
 </span>
 
-<script src="jquery-1.10.2.min.js"></script>
+<img id="blinky" src="assets/img/blinky.svg" style="display:none;">
+<img id="inky" src="assets/img/inky.svg" style="display:none;">
+<img id="clyde" src="assets/img/clyde.svg" style="display:none;">
+<img id="pinky" src="assets/img/pinky.svg" style="display:none;">
+<img id="blinky-flipped" src="assets/img/blinky-flipped.svg" style="display:none;">
+<img id="inky-flipped" src="assets/img/inky-flipped.svg" style="display:none;">
+<img id="clyde-flipped" src="assets/img/clyde-flipped.svg" style="display:none;">
+<img id="pinky-flipped" src="assets/img/pinky-flipped.svg" style="display:none;">
+<img id="dazzled" src="assets/img/dazzled.svg" style="display:none;">
+<img id="dazzled-flipped" src="assets/img/dazzled-flipped.svg" style="display:none;">
+
+<script src="jquery-3.1.1.min.js"></script>
 <script src="pathfinding-browser.js"></script>
 <script src="bootstrap-3.3.7-dist/js/bootstrap.js"></script>
 
@@ -217,6 +261,7 @@
 <script src="blinky.js"></script>
 <script src="pinky.js"></script>
 <script src="clyde.js"></script>
+<script src="resume.js"></script>
 
 </body>
 </html>

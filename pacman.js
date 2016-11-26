@@ -20,6 +20,7 @@ function Pacman() {
     this.proposedDirection = null;
     this.isMoving = false;
     this.fillStyle = "Yellow";
+    this.type = "Pacman";
     this.move = function () {
         if (self.dead) {
             this.dieAnimation();
@@ -118,14 +119,6 @@ function Pacman() {
 
     this.dieFinal = function () {
         game.reset();
-        // self.lives--;
-        // if (this.lives <= 0) {
-        //     var input = "<div id='highscore-form'><span id='form-validater'></span><input type='text' id='playerName'/><span class='button' id='score-submit'>save</span></div>";
-        //     game.showMessage("Game over", "Total Score: " + game.score.score + input);
-        //     game.gameOver = true;
-        //     $('#playerName').focus();
-        // }
-        // game.drawHearts(this.lives);
     };
 
     this.reset = function () {

@@ -9,6 +9,7 @@ function Ghost(name, x, y, myAlgorithm, myCircle, myTerritoryFunc) {
     this.y = this.startY;
     this.height = 30;
     this.width = 30;
+    this.name = name;
     this.image = document.getElementById(name);
     this.type = "Ghost";
     // this.startGrid = myCircle[0];

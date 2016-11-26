@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="60"
+   height="60"
+   id="svg3209"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="pinky-flipped.svg">
+  <title
+     id="title3238">pinky</title>
+  <defs
+     id="defs3211" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="56.727193"
+     inkscape:cy="-67.066627"
+     inkscape:document-units="px"
+     inkscape:current-layer="g3048"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1280"
+     inkscape:window-height="751"
+     inkscape:window-x="0"
+     inkscape:window-y="1"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata3214">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>pinky</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-620.1475,-462.09155)">
+    <g
+       id="g3048"
+       inkscape:label="#blinky"
+       transform="translate(169.6996,-110.9135)"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <title
+         id="title3056">Blinky</title>
+      <path
+         inkscape:label="#Blinky"
+         style="fill:#ff00ff"
+         d="m 507.05676,630.09495 c 1.19998,-1.69634 1.5488,-4.89874 1.53353,-14.07881 -0.0359,-21.51711 -2.18535,-29.51183 -9.75569,-36.28383 -5.172,-4.62658 -10.04801,-6.19711 -19.20532,-6.18593 -6.35935,0.008 -8.43802,0.46535 -13.39237,2.94814 -11.07735,5.55122 -13.5337,11.88077 -14.19673,36.5824 -0.37331,13.90713 -0.26932,14.98808 1.60306,16.66588 2.62049,2.34816 5.52538,1.57814 10.74947,-2.84945 2.26771,-1.92196 4.52187,-3.49447 5.00925,-3.49447 0.48739,0 2.63996,1.77838 4.78351,3.95195 2.14354,2.17357 4.65537,3.95195 5.58183,3.95195 0.92647,0 3.85797,-1.77838 6.51446,-3.95195 5.3711,-4.39472 6.49468,-4.69993 8.48618,-2.30525 1.67659,2.01604 8.85358,7.24519 9.94399,7.24519 0.43534,0 1.4905,-0.98812 2.34483,-2.19582 z m -28.69617,-24.59546 c -1.19872,-0.607 -2.89361,-1.99153 -3.76642,-3.07675 -1.5727,-1.95543 -1.60993,-1.95032 -4.15477,0.56947 -3.53273,3.49793 -7.18661,4.23286 -11.32642,2.27817 -3.98968,-1.88381 -4.66586,-5.2651 -1.15218,-5.76147 2.46527,-0.34825 3.67621,-3.54732 1.58066,-4.17586 -4.83369,-1.44981 -4.91312,-1.51912 -3.89671,-3.39958 1.36294,-2.5216 6.45517,-4.46809 9.62696,-3.67986 1.4299,0.35535 3.72506,1.76023 5.10033,3.12196 l 2.5005,2.47587 2.3176,-2.47609 c 4.53926,-4.84969 12.08891,-4.10214 15.00741,1.48604 1.7717,3.39237 1.78626,5.60416 0.0572,8.69303 -2.44172,4.36201 -7.65559,6.09135 -11.89418,3.94507 z m 0.93369,-7.24696 c 0.77371,-1.9964 -0.37697,-3.50527 -2.67317,-3.50527 -1.40064,0 -1.93673,0.68369 -1.93673,2.46997 0,1.82403 0.53007,2.46997 2.02694,2.46997 1.11483,0 2.27715,-0.6456 2.58296,-1.43467 z"
+         id="Blinky"
+         inkscape:connector-curvature="0">
+        <title
+           id="title3046">Blinky</title>
+      </path>
+      <ellipse
+         transform="scale(-1,1)"
+         id="path3004"
+         style="fill:#ffffff;fill-opacity:1"
+         cx="-463.65878"
+         cy="598.50342"
+         rx="9.9781399"
+         ry="10.007922" />
+      <ellipse
+         transform="scale(-1,1)"
+         id="path3004-1"
+         style="fill:#ffffff;fill-opacity:1"
+         cx="-481.83322"
+         cy="598.26379"
+         rx="9.9781399"
+         ry="10.007922" />
+      <ellipse
+         transform="scale(-1,1)"
+         id="path3026"
+         style="fill:#0000ff;fill-opacity:1"
+         cx="-477.67285"
+         cy="598.23999"
+         rx="4.9890699"
+         ry="5.1892929" />
+      <ellipse
+         transform="scale(-1,1)"
+         id="path3026-7"
+         style="fill:#0000ff;fill-opacity:1"
+         cx="-458.7233"
+         cy="597.92523"
+         rx="4.9890699"
+         ry="5.1892929" />
+    </g>
+  </g>
+</svg>

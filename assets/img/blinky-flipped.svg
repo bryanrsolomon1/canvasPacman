@@ -5,6 +5,7 @@
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -12,8 +13,8 @@
    height="60"
    id="svg3209"
    version="1.1"
-   inkscape:version="0.48.2 r9819"
-   sodipodi:docname="Neues Dokument 11">
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="blinky-flipped.svg">
   <title
      id="title3238">blinky</title>
   <defs
@@ -35,10 +36,10 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:window-width="1920"
-     inkscape:window-height="1148"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
+     inkscape:window-width="1280"
+     inkscape:window-height="751"
+     inkscape:window-x="0"
+     inkscape:window-y="1"
      inkscape:window-maximized="1" />
   <metadata
      id="metadata3214">
@@ -60,7 +61,7 @@
     <g
        id="g3048"
        inkscape:label="#blinky"
-       transform="translate(169.6996,-110.9135)"
+       transform="matrix(-1.0229436,0,0,1,1141.9763,-110.9135)"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90">
       <title
@@ -74,46 +75,38 @@
         <title
            id="title3046">Blinky</title>
       </path>
-      <path
+      <ellipse
          transform="matrix(1.12,0,0,1.0188679,-61.321661,-12.313696)"
-         d="m 507.85713,598.61218 c 0,5.22698 -3.99746,9.46429 -8.92857,9.46429 -4.93112,0 -8.92857,-4.23731 -8.92857,-9.46429 0,-5.22698 3.99745,-9.46428 8.92857,-9.46428 4.93111,0 8.92857,4.2373 8.92857,9.46428 z"
-         sodipodi:ry="9.4642859"
-         sodipodi:rx="8.9285717"
-         sodipodi:cy="598.61218"
-         sodipodi:cx="498.92856"
          id="path3004"
          style="fill:#ffffff;fill-opacity:1"
-         sodipodi:type="arc" />
-      <path
+         cx="498.92856"
+         cy="598.61218"
+         rx="8.9285717"
+         ry="9.4642859" />
+      <ellipse
          transform="matrix(1.12,0,0,1.0188679,-79.535934,-12.544555)"
-         d="m 507.85713,598.61218 c 0,5.22698 -3.99746,9.46429 -8.92857,9.46429 -4.93112,0 -8.92857,-4.23731 -8.92857,-9.46429 0,-5.22698 3.99745,-9.46428 8.92857,-9.46428 4.93111,0 8.92857,4.2373 8.92857,9.46428 z"
-         sodipodi:ry="9.4642859"
-         sodipodi:rx="8.9285717"
-         sodipodi:cy="598.61218"
-         sodipodi:cx="498.92856"
          id="path3004-1"
          style="fill:#ffffff;fill-opacity:1"
-         sodipodi:type="arc" />
-      <path
+         cx="498.92856"
+         cy="598.61218"
+         rx="8.9285717"
+         ry="9.4642859" />
+      <ellipse
          transform="matrix(1.7599103,0,0,1.6850204,-365.34427,-410.69975)"
-         d="m 485.12575,598.23547 c 0,1.63881 -1.27198,2.96733 -2.84105,2.96733 -1.56907,0 -2.84106,-1.32852 -2.84106,-2.96733 0,-1.6388 1.27199,-2.96732 2.84106,-2.96732 1.56907,0 2.84105,1.32852 2.84105,2.96732 z"
-         sodipodi:ry="2.9673231"
-         sodipodi:rx="2.841054"
-         sodipodi:cy="598.23547"
-         sodipodi:cx="482.2847"
          id="path3026"
          style="fill:#0000ff;fill-opacity:1"
-         sodipodi:type="arc" />
-      <path
+         cx="482.2847"
+         cy="598.23547"
+         rx="2.841054"
+         ry="2.9673231" />
+      <ellipse
          transform="matrix(1.7599103,0,0,1.6850204,-346.35319,-411.00305)"
-         d="m 485.12575,598.23547 c 0,1.63881 -1.27198,2.96733 -2.84105,2.96733 -1.56907,0 -2.84106,-1.32852 -2.84106,-2.96733 0,-1.6388 1.27199,-2.96732 2.84106,-2.96732 1.56907,0 2.84105,1.32852 2.84105,2.96732 z"
-         sodipodi:ry="2.9673231"
-         sodipodi:rx="2.841054"
-         sodipodi:cy="598.23547"
-         sodipodi:cx="482.2847"
          id="path3026-7"
          style="fill:#0000ff;fill-opacity:1"
-         sodipodi:type="arc" />
+         cx="482.2847"
+         cy="598.23547"
+         rx="2.841054"
+         ry="2.9673231" />
     </g>
   </g>
 </svg>
